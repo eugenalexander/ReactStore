@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { Product } from "../../app/models/product";
+import type { Product } from "../../app/models/product";
 import { Button, Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from "@mui/material";
 
 export default function ProductDetails() {
