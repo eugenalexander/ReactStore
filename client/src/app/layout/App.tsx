@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Product } from "../models/product";
 import Catalog from "../../features/catalog/Catalog";
 import { Box, Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import NavBar from "./NavBar";
+import { Outlet } from "react-router-dom";
 
 export default function App() {
 
-  const[products, setProducts] = useState<Product[]>([]);
+  
   const[darkMode, setDarkMode] = useState(false);
   const palleteType = darkMode ? 'dark' : 'light'
 
@@ -19,11 +20,7 @@ export default function App() {
     }
   })
 
-  useEffect(() => {
-    fetch('https://localhost:5001/api/products')
-    .then(response => response.json())
-    .then(data => setProducts(data))
-  }, [])
+  
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -44,7 +41,7 @@ export default function App() {
       >
 
         <Container maxWidth='xl' sx={{mt: 8}}>
-        <Catalog products={products} />
+        <Outlet />
       </Container>
       </Box>
       
