@@ -1,69 +1,104 @@
-# React + TypeScript + Vite
+# 🛒 ReactStore
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple, modern React-based online store featuring sample products, cart functionality, and a clear component hierarchy. Perfect for learning purposes, small web shops, or as a boilerplate for larger e-commerce projects.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📦 Product list with image, title, and price
+- 🛍️ Shopping cart with live item count and total price calculation
+- 🔄 State management using React Context API or Redux (depending on branch)
+- 📱 Responsive design for desktop and mobile
+- 🔌 REST API integration (with .NET backend)
+- 💡 Easy to extend (product details, checkout, backend integration)
 
-## Expanding the ESLint configuration
+## 🖼️ Demo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+> [👉 Live Demo (optional link)](https://example.com)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+![Screenshot](./screenshot.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ⚙️ Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 1. Clone the repository
+git clone https://github.com/eugenalexander/ReactStore.git
+cd ReactStore
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the local development server
+npm start
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The app will be available at: [http://localhost:3000](http://localhost:3000)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔌 API Integration (.NET)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+This project supports integration with a .NET-based REST API for dynamic product data and cart actions.
+
+### Example Endpoints (from .NET backend):
+
+- `GET /api/products` – Fetch product list
+- `POST /api/cart/add` – Add item to cart
+- `DELETE /api/cart/remove/{id}` – Remove item from cart
+
+### Environment Configuration
+
+Set the API base URL in a `.env` file:
+
+```env
+REACT_APP_API_URL=https://localhost:5001/api
 ```
+
+> You can build the backend using ASP.NET Core Web API and connect it via HTTP.
+
+## 🧱 Tech Stack
+
+- React 18+
+- React Router (if used)
+- Zustand / Redux / Context API
+- Styled Components or CSS Modules
+- ASP.NET Core Web API (for backend)
+- (optional) Vite / CRA / Webpack – depending on setup
+
+## 📁 Project Structure
+
+```bash
+src/
+├── components/       # Reusable UI components
+├── pages/            # Main pages (e.g., Home, Cart)
+├── context/          # Global state management
+├── assets/           # Images, icons, etc.
+└── App.js            # Main entry point
+```
+
+## ✅ ToDo / Future Enhancements
+
+- [ ] Product detail page
+- [ ] Checkout flow with payment integration
+- [ ] Connect to full .NET backend
+- [ ] User login and registration
+
+## 🧑‍💻 Contributing
+
+Pull requests and issues are welcome! This project is ideal for anyone looking to learn React or contribute to open-source.
+
+```bash
+# Create a feature branch
+git checkout -b feature/my-feature
+
+# Commit and push your changes
+git commit -m "My awesome feature"
+git push origin feature/my-feature
+
+# Open a PR 🚀
+```
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+**Author:** [Eugen Alexander](https://github.com/eugenalexander)
