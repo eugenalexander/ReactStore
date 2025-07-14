@@ -1,9 +1,15 @@
-import { Typography } from "@mui/material";
+import { Grid } from "@mui/material";
+import OrderSummary from "../../app/shared/components/OrderSummary";
 
 export default function CheckoutPage() {
   return (
-    <Typography variant="h3">
-        Only authorised users should be able to see this.
-    </Typography>
+    <Grid container spacing={2}>
+      <Grid size={8}>
+        Checkout stepper goes here
+      </Grid>
+      <Grid size={4}>
+        <OrderSummary />
+      </Grid>
+    </Grid>
   )
 }
