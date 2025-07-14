@@ -1,29 +1,54 @@
 using System;
+using System.Threading.Tasks;
 using API.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data;
 
 public class DbInitializer
 {
-    public static void InitDb(WebApplication app)
+    public static async Task InitDb(WebApplication app)
     {
         using var scope = app.Services.CreateScope();
 
         var context = scope.ServiceProvider.GetRequiredService<StoreContext>()
         ?? throw new InvalidOperationException("Failed to retrieve StoreContext.");
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>()
+        ?? throw new InvalidOperationException("Failed to retrieve user manager.");
 
-        SeedData(context);
+        await SeedData(context, userManager);
     }
 
-    private static void SeedData(StoreContext context)
+    private static async Task SeedData(StoreContext context, UserManager<User> userManager)
     {
         context.Database.Migrate();
 
-        if (context.Products.Any())
+        if (!userManager.Users.Any())
         {
-            return; // Database has been seeded
+            var user = new User
+            {
+                UserName = "member@mihaela-malic.com",
+                Email = "member@mihaela-malic.com"
+            };
+
+            await userManager.CreateAsync(user, "Pa$$w0rd");
+            await userManager.AddToRoleAsync(user, "Member");
+
+            var admin = new User
+            {
+                UserName = "admin@mihaela-malic.com",
+                Email = "admin@mihaela-malic.com"
+            };
+
+            await userManager.CreateAsync(admin, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(admin, ["Member", "Admin"]);
         }
+
+        if (context.Products.Any())
+            {
+                return; // Database has been seeded
+            }
 
         var products = new List<Product>
         {
