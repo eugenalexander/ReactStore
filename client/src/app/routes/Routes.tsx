@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
         children: [
             {element: <RequireAuth />, children: [
                 {path: '/checkout', element: <CheckoutPage />},
-                {path: '/checkout/succcess', element: <CheckoutSuccess />},
+                {path: '/checkout/success', element: <CheckoutSuccess />},
             ]},
             {path: '', element: <HomePage />},
             {path: '/catalog', element: <Catalog />},

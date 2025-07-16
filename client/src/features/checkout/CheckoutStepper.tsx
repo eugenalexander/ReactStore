@@ -53,7 +53,7 @@ export default function CheckoutStepper() {
         if(activeStep === 2) {
             await confirmPayment();
         }
-        setActiveStep(step => step + 1);
+        if(activeStep < 2) setActiveStep(step => step + 1);
     }
 
     const handleBack = () => {
@@ -62,6 +62,7 @@ export default function CheckoutStepper() {
 
     const confirmPayment = async () => {
         setSubmiting(true);
+
         try {
             if(!confirmationToken || !basket?.clientSecret) throw new Error('Unable to process payment');
 
@@ -72,6 +73,7 @@ export default function CheckoutStepper() {
                     confirmation_token: confirmationToken.id
                 }
             });
+
             if(paymentResult?.paymentIntent?.status === 'succeeded') {
                 navigate('/checkout/success');
                 clearBasket();
@@ -109,7 +111,6 @@ export default function CheckoutStepper() {
     }
 
     if (!data) return <Typography variant="h6">Address data missing</Typography>;
-
     if(isLoading) return <Typography variant="h6">Loading checkout...</Typography>
 
   return (
@@ -146,7 +147,15 @@ export default function CheckoutStepper() {
                 />
             </Box>
             <Box sx={{display: activeStep === 1 ? 'block' : 'none'}}>
-                <PaymentElement onChange={handlePaymentChange} />
+                <PaymentElement 
+                onChange={handlePaymentChange}
+                options={{
+                    wallets: {
+                        applePay: 'auto',
+                        googlePay: 'auto'
+                    }
+                }}
+                />
             </Box>
             <Box sx={{display: activeStep === 2 ? 'block' : 'none'}}>
                 <Review confirmationToken={confirmationToken} />
@@ -154,8 +163,9 @@ export default function CheckoutStepper() {
         </Box>
 
         <Box display='flex' paddingTop={2} justifyContent='space-between'>
+            <Button onClick={handleBack} disabled={activeStep === 0}>Back</Button>
             <LoadingButton 
-                onClick={handleBack}
+                onClick={handleNext}
                 disabled={
                     (activeStep === 0 && !addressComplete) ||
                     (activeStep === 1 && ! paymentComplete) ||
@@ -164,7 +174,6 @@ export default function CheckoutStepper() {
             >
                 {activeStep === steps.length - 1 ? `Pay ${currencyFormat(total)}` : 'Next'}
             </LoadingButton>
-            <Button onClick={handleNext}>Next</Button>
         </Box>
     </Paper>
   )
