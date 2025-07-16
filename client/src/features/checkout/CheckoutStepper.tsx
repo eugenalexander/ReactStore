@@ -4,6 +4,9 @@ import { AddressElement, PaymentElement, useElements } from "@stripe/react-strip
 import { useState } from "react"
 import Review from "./Review";
 import { useFetchAddressQuery, useUpdateUserAddressMutation } from "../accounts/accountApi";
+import type { StripeAddressElementChangeEvent, StripePaymentElementChangeEvent } from "@stripe/stripe-js";
+import { useBasket } from "../../lib/hooks/useBasket";
+import { currencyFormat } from "../../lib/util";
 
 const steps = ['Address', 'Payment', 'Review'];
 
@@ -20,6 +23,9 @@ export default function CheckoutStepper() {
     const [updateAddress] = useUpdateUserAddressMutation()
     const [saveAddressChecked, setSaveAddressChecked] = useState(false);
     const elements = useElements();
+    const [addressComplete, setAddressComplete] = useState(false);
+    const [paymentComplete, setPaymentComplete] = useState(false);
+    const{total} = useBasket();
 
 
     const handleNext = async () => {
@@ -42,6 +48,13 @@ export default function CheckoutStepper() {
         if(name && address) return {...address, name}
 
         return null;
+    }
+
+    const handleAddressChange = (event: StripeAddressElementChangeEvent) => {
+        setAddressComplete(event.complete);
+    }
+    const handlePaymentChange = (event: StripePaymentElementChangeEvent) => {
+        setPaymentComplete(event.complete);
     }
 
     if (!data) return <Typography variant="h6">Address data missing</Typography>;
@@ -71,17 +84,18 @@ export default function CheckoutStepper() {
                         }
 
                     }}
+                    onChange={handleAddressChange}
                 />
                 <FormControlLabel
                     sx={{display: 'flex', justifyContent: 'end'}}
                     control={<CheckBox />}
                     checked={saveAddressChecked}
-                    onChange={e => setSaveAddressChecked(e.target.checked)}
+                    onChange={e => setSaveAddressChecked((e.target as HTMLInputElement).checked)}
                     label='Save as default address'
                 />
             </Box>
             <Box sx={{display: activeStep === 1 ? 'block' : 'none'}}>
-                <PaymentElement />
+                <PaymentElement onChange={handlePaymentChange} />
             </Box>
             <Box sx={{display: activeStep === 2 ? 'block' : 'none'}}>
                 <Review />
@@ -89,7 +103,15 @@ export default function CheckoutStepper() {
         </Box>
 
         <Box display='flex' paddingTop={2} justifyContent='space-between'>
-            <Button onClick={handleBack}>Back</Button>
+            <Button 
+                onClick={handleBack}
+                disabled={
+                    (activeStep === 0 && !addressComplete) ||
+                    (activeStep === 1 && ! paymentComplete)
+                }
+            >
+                {activeStep === steps.length - 1 ? `Pay ${currencyFormat(total)}` : 'Next'}
+            </Button>
             <Button onClick={handleNext}>Next</Button>
         </Box>
     </Paper>
