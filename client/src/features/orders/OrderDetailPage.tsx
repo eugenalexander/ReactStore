@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom"
 import { useFetchOrderDetailedQuery } from "./orderApi";
 import { Box, Button, Card, Divider, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import { format } from 'date-fns';
-import { currencyFormat } from "../../lib/util";
+import { currencyFormat, formatAddressString, formatPaymentString } from "../../lib/util";
 
 export default function OrderDetailPage() {
     const {id} = useParams();
@@ -33,7 +33,7 @@ export default function OrderDetailPage() {
                     Shipping address
                 </Typography>
                 <Typography component='dd' variant="body2" fontWeight='300'>
-                    Shipping address
+                    {formatAddressString(order.shippingAddress)}
                 </Typography>
             </Box>
             <Box component='dl'>
@@ -41,7 +41,7 @@ export default function OrderDetailPage() {
                     Payment info
                 </Typography>
                 <Typography component='dd' variant="body2" fontWeight='300'>
-                    Payment goes here
+                    {formatPaymentString(order.paymentSummary)}
                 </Typography>
             </Box>
         </Box>
