@@ -7,6 +7,6 @@ namespace API.Entities.OrderAggregate;
 public class ProductItemOrdered
 {
     public int ProductId { get; set; }
-    public required int Name { get; set; }
-    public required int PrictureUrl { get; set; }
+    public required string Name { get; set; }
+    public required string PrictureUrl { get; set; }
 }
