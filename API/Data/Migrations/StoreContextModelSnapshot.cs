@@ -123,7 +123,8 @@ namespace API.Data.Migrations
                     b.Property<int>("OrderStatus")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PaymentId")
+                    b.Property<string>("PaymentIntentId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long>("Subtotal")
@@ -510,11 +511,13 @@ namespace API.Data.Migrations
                             b1.Property<int>("OrderItemId")
                                 .HasColumnType("INTEGER");
 
-                            b1.Property<int>("Name")
-                                .HasColumnType("INTEGER");
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
 
-                            b1.Property<int>("PrictureUrl")
-                                .HasColumnType("INTEGER");
+                            b1.Property<string>("PictureUrl")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
 
                             b1.Property<int>("ProductId")
                                 .HasColumnType("INTEGER");

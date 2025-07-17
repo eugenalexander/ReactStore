@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Entities;
@@ -7,6 +8,7 @@ namespace API.Entities;
 public class Basket
 {
     public int Id { get; set; }
+
     public required string BasketId { get; set; }
     public List<BasketItem> Items { get; set; } = [];
     public string? ClientSecret { get; set; }
@@ -15,7 +17,8 @@ public class Basket
     public void AddItem(Product product, int quantity)
     {
         if (product == null) ArgumentNullException.ThrowIfNull(product);
-        if (quantity <= 0) throw new ArgumentException("Quantity should be greater than zero", nameof(quantity));
+        if (quantity <= 0) throw new ArgumentException("Quantity should be greater than zero",
+        nameof(quantity));
 
         var existingItem = FindItem(product.Id);
 
