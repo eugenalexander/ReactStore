@@ -8,7 +8,7 @@
 # dotenv files
 .env
 API/.env
-
+API/wwwroot/
 
 # User-specific files
 *.rsuser
@@ -491,3 +491,4 @@ API/appsettings.Development.json
 API/appsettings.Development.json
 API/appsettings.Development.json
 API/appsettings.Development.json
+client/.env.production

@@ -3,11 +3,15 @@ import { useFetchOrderDetailedQuery } from "./orderApi";
 import { Box, Button, Card, Divider, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import { format } from 'date-fns';
 import { currencyFormat, formatAddressString, formatPaymentString } from "../../lib/util";
+import type { Order } from "../../app/models/order";
 
 export default function OrderDetailPage() {
     const {id} = useParams();
 
-    const {data: order, isLoading} = useFetchOrderDetailedQuery(+id!);
+    const { data: order, isLoading } = useFetchOrderDetailedQuery(+id!) as {
+    data: Order | undefined;
+    isLoading: boolean;
+    };
 
     if(isLoading) return <Typography variant="h5">Loading order...</Typography>
     if(!order) return <Typography variant="h5">Order not found</Typography>
