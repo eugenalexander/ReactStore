@@ -1,104 +1,136 @@
 # 🛒 ReactStore
 
-A simple, modern React-based online store featuring sample products, cart functionality, and a clear component hierarchy. Perfect for learning purposes, small web shops, or as a boilerplate for larger e-commerce projects.
-
-## 🚀 Features
-
-- 📦 Product list with image, title, and price
-- 🛍️ Shopping cart with live item count and total price calculation
-- 🔄 State management using React Context API or Redux (depending on branch)
-- 📱 Responsive design for desktop and mobile
-- 🔌 REST API integration (with .NET backend)
-- 💡 Easy to extend (product details, checkout, backend integration)
-
-## 🖼️ Demo
-
-> [👉 Live Demo (optional link)](https://example.com)
-
-![Screenshot](./screenshot.png)
-
-## ⚙️ Installation
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/eugenalexander/ReactStore.git
-cd ReactStore
-
-# 2. Install dependencies
-npm install
-
-# 3. Start the local development server
-npm start
-```
-
-The app will be available at: [http://localhost:3000](http://localhost:3000)
-
-## 🔌 API Integration (.NET)
-
-This project supports integration with a .NET-based REST API for dynamic product data and cart actions.
-
-### Example Endpoints (from .NET backend):
-
-- `GET /api/products` – Fetch product list
-- `POST /api/cart/add` – Add item to cart
-- `DELETE /api/cart/remove/{id}` – Remove item from cart
-
-### Environment Configuration
-
-Set the API base URL in a `.env` file:
-
-```env
-REACT_APP_API_URL=https://localhost:5001/api
-```
-
-> You can build the backend using ASP.NET Core Web API and connect it via HTTP.
-
-## 🧱 Tech Stack
-
-- React 18+
-- React Router (if used)
-- Zustand / Redux / Context API
-- Styled Components or CSS Modules
-- ASP.NET Core Web API (for backend)
-- (optional) Vite / CRA / Webpack – depending on setup
-
-## 📁 Project Structure
-
-```bash
-src/
-├── components/       # Reusable UI components
-├── pages/            # Main pages (e.g., Home, Cart)
-├── context/          # Global state management
-├── assets/           # Images, icons, etc.
-└── App.js            # Main entry point
-```
-
-## ✅ ToDo / Future Enhancements
-
-- [ ] Product detail page
-- [ ] Checkout flow with payment integration
-- [ ] Connect to full .NET backend
-- [ ] User login and registration
-
-## 🧑‍💻 Contributing
-
-Pull requests and issues are welcome! This project is ideal for anyone looking to learn React or contribute to open-source.
-
-```bash
-# Create a feature branch
-git checkout -b feature/my-feature
-
-# Commit and push your changes
-git commit -m "My awesome feature"
-git push origin feature/my-feature
-
-# Open a PR 🚀
-```
-
-## 📜 License
-
-This project is licensed under the [MIT License](LICENSE).
+A full-stack product management application built with a modern **React + TypeScript** frontend and a robust **.NET 9 Web API** backend.
 
 ---
 
-**Author:** [Eugen Alexander](https://github.com/eugenalexander)
+## 📁 Project Structure
+
+```
+ReactStore/
+├── Client/               → React + Vite frontend with Material UI
+└── ReactStore/           → .NET 9 Web API backend (.sln solution)
+    └── ReactStore.sln
+```
+
+---
+
+## 🌐 Client (React + TypeScript)
+
+**Path:** `ReactStore/Client`
+
+### ⚙️ Stack
+
+- [React 19 (RC)](https://reactjs.org/)
+- [Vite](https://vitejs.dev/) – lightning-fast dev server & bundler
+- [TypeScript](https://www.typescriptlang.org/)
+- [Material UI](https://mui.com/) (MUI v7)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/) – schema-based validation
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- Stripe integration
+
+### 📦 Plugins & Dependencies
+
+#### Main Dependencies
+
+- `@emotion/react`, `@emotion/styled` – MUI styling
+- `@fontsource/roboto` – default MUI font
+- `@hookform/resolvers` – resolver bridge for Zod
+- `@mui/material`, `@mui/icons-material`, `@mui/lab` – Material UI v7
+- `@reduxjs/toolkit` – Redux logic & slices
+- `@stripe/react-stripe-js`, `@stripe/stripe-js` – Stripe payments
+- `date-fns` – modern date utility
+- `js-cookie` – cookie management
+- `react`, `react-dom` – React 19
+- `react-dropzone` – drag & drop file uploads
+- `react-hook-form` – lightweight forms
+- `react-redux` – binding for Redux
+- `react-router-dom` – routing (v7)
+- `react-toastify` – toast notifications
+- `zod` – form & schema validation
+
+#### Dev Dependencies
+
+- `vite`, `@vitejs/plugin-react-swc` – development & production builds
+- `typescript`, `@types/react`, `@types/react-dom` – TypeScript typings
+- `eslint`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh` – linting
+- `vite-plugin-mkcert` – HTTPS via local certificates
+- `@eslint/js`, `typescript-eslint` – modern linting config
+- `@types/js-cookie` – type support for js-cookie
+
+### 🚀 Getting Started (Client)
+
+```bash
+cd ReactStore/Client
+npm install
+npm run dev
+```
+
+Access the app at: `http://localhost:5173` (default Vite port)
+
+---
+
+## 🔧 API (.NET 9 Web API)
+
+**Path:** `ReactStore/ReactStore`
+
+### Stack
+
+- ASP.NET Core 9
+- C#
+- Clean project structure
+- REST API for product operations
+- Optional Entity Framework support (based on your implementation)
+
+### 🚀 Getting Started (API)
+
+```bash
+cd ReactStore/ReactStore
+dotnet build
+dotnet run
+```
+
+Runs on `https://localhost:5001` or `http://localhost:5000` by default.
+
+---
+
+## ✅ Features
+
+- 🧾 Product listing with images
+- ✍️ Add/Edit/Delete products
+- 📂 File uploads with drag & drop
+- ✅ Form validation (zod + RHF)
+- 🛒 Stripe payment support
+- 📦 Modular architecture
+- 🧪 Extensible for admin roles, auth, etc.
+
+---
+
+## 📦 Deployment
+
+### Frontend
+
+```bash
+cd Client
+npm run build
+```
+
+### Backend
+
+```bash
+cd ReactStore
+dotnet publish -c Release -o out
+```
+
+---
+
+## 🤝 Contributing
+
+Pull requests and community contributions are welcome. Please follow code style and test changes before submitting.
+
+---
+
+## 📝 License
+
+MIT License – feel free to use and modify for commercial or personal use.
